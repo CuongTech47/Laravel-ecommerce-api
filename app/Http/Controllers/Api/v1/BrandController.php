@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Controllers\Controller;
-
 use App\Category;
-use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\CategoryResource;
-use App\Http\Resources\v1\CategoryCollection;
-class CategoryController extends Controller
+use Illuminate\Http\Request;
+use App\Brand;
+
+use App\Http\Resources\v1\BrandCollection;
+use App\Http\Resources\v1\BrandResource;
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +20,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        return new  CategoryCollection(Category::paginate(10));
-
+        return new  BrandCollection(Brand::paginate(10));
     }
 
     /**
@@ -42,26 +42,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
-        /* $this->validate($request, [
-            'category_name' => 'required',
-            'category_desc' => 'required',
-            'category_status' => 'required',
-        ]);
-
-        return Category::create([
-            'category_name' => $request->category_name,
-            'category_desc' => $request->category_desc,
-            'category_status' => $request->category_status,
-        ]); */
-
         $request->validate([
-            'category_name' => 'required',
-            'category_desc' => 'required',
-            'category_status' => 'required',
+            'brand_name' => 'required',
+            'brand_desc' => 'required',
+            'brand_status' => 'required',
         ]);
-        $category = Category::create($request->all());
-        return new CategoryResource($category);
-
+        $brand = Brand::create($request->all());
+        return new BrandResource($brand);
     }
 
     /**
@@ -70,10 +57,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Brand $brand)
     {
         //
-        return new CategoryResource($category);
+        return new BrandResource($brand);
     }
 
     /**
@@ -94,17 +81,17 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Category $category)
+    public function update(Request $request,Brand $brand)
     {
         //
         $request->validate([
-            'category_name' => 'required',
-            'category_desc' => 'required',
-            'category_status' => 'required',
+            'brand_name' => 'required',
+            'brand_desc' => 'required',
+            'brand_status' => 'required',
         ]);
-        $category->update($request->all());
+        $brand->update($request->all());
 
-        return new CategoryResource($category);
+        return new BrandResource($brand);
     }
 
     /**
@@ -113,10 +100,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Brand $brand)
     {
         //
-        $category->delete();
-
+        $brand->delete();
     }
 }
