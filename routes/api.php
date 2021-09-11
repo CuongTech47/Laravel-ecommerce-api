@@ -22,4 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function(){
     Route::resource('category','Api\v1\CategoryController')->only(['index','show','store','update','destroy']);
     Route::resource('brand','Api\v1\BrandController')->only(['index','show','store','update','destroy']);
+    Route::resource('product','Api\v1\ProductController')->only(['index','show','store','update','destroy']);
 });
