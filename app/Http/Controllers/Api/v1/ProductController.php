@@ -52,10 +52,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Product $product)
     {
         //
-        return new ProductResource($category);
+        return new ProductResource($product);
     }
 
     /**
@@ -76,17 +76,19 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Category $category)
+    public function update(Request $request,Product $product)
     {
         //
         $request->validate([
-            'category_name' => 'required',
-            'category_desc' => 'required',
-            'category_status' => 'required',
+            'product_name' => 'required',
+            'category_id' => 'required',
+            'brand_id' => 'required',
+            'product_desc' => 'required',
+            'product_status' => 'required',
         ]);
-        $category->update($request->all());
+        $product->update($request->all());
 
-        return new ProductResource($category);
+        return new ProductResource($product);
     }
 
     /**
@@ -95,10 +97,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Product $product)
     {
         //
-        $category->delete();
-
+        $product->delete();
     }
 }
